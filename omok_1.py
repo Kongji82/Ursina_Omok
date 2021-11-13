@@ -34,7 +34,6 @@ def is_num(x, y, num):
 
 def game_over(i, j, num):
     global fin
-    print(num)
     fin = num
 
 
@@ -122,9 +121,7 @@ for y in range(h):
                     flag = False
                     Omok_map[19 - int(b.position.y) ][int(b.position.x)] = int(1)
                     who_win()
-                    print(Omok_map)
-                    print(fin)
-                    
+                
                     
                 else:
                     b.text = "W"
@@ -134,15 +131,6 @@ for y in range(h):
                     flag = True
                     Omok_map[19 - int(b.position.y)][int(b.position.x)] = int(2)
                     who_win()
-                    print(Omok_map)
-            
-            # black turn
-
-        # def w_click(b=b):
-        #     # white turn
-        #     b.text = "W"
-        #     b.color = color.white
-        #     b.collision = False
 
         b.on_click = click
 
