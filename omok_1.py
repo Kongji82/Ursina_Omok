@@ -30,13 +30,9 @@ def is_num(x, y, num):
     else:
         return True
     
-
-
 def game_over(i, j, num):
     global fin
     fin = num
-
-
 
 
 def rule_chek(i, j, num, row, col, down_Diagonal, up_Diagonal):
@@ -119,7 +115,7 @@ for y in range(h):
                     b.color = color.black
                     b.collision = False
                     flag = False
-                    Omok_map[19 - int(b.position.y) ][int(b.position.x)] = int(1)
+                    Omok_map[19 - int(b.position.y) ][int(b.position.x)] = 1
                     who_win()
                 
                     
@@ -129,7 +125,7 @@ for y in range(h):
                     b.color = color.white
                     b.collision = False 
                     flag = True
-                    Omok_map[19 - int(b.position.y)][int(b.position.x)] = int(2)
+                    Omok_map[19 - int(b.position.y)][int(b.position.x)] = 2
                     who_win()
 
         b.on_click = click
