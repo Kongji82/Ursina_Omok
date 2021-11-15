@@ -1,3 +1,4 @@
+from re import T
 from ursina import *
 import numpy as np
 
@@ -14,7 +15,7 @@ camera.orthographic = True      # 2D
 camera.fov = 23
 camera.position = (w//2, h//2)
 
-Entity(model=Grid(w+1, h+1), scale=w+1, color=color.black, x=w//2-0.5, y=h//2-0.5, z=0.1)
+Entity(model=Grid(w+1, h+1), scale=w+1, color=color.black, x=w//2-0.5, y=h//2-0.5, z=0.1)   
 map_size = 20
 Omok_map = np.zeros([map_size, map_size])
 
@@ -23,6 +24,11 @@ col = 0
 down_Diagonal = 0 
 up_Diagonal = 0
 fin = 0
+global flag
+flag = True
+
+
+board_buttons = [[None for x in range(w)] for y in range(h)]
 
 def is_num(x, y, num):
     if Omok_map[x][y] != num:
@@ -36,7 +42,6 @@ def game_over(i, j, num):
 
 
 def rule_chek(i, j, num, row, col, down_Diagonal, up_Diagonal):
-
     for k in range(5):
         if is_num(i, j + k, num) == False:
             break
@@ -73,61 +78,80 @@ def rule_chek(i, j, num, row, col, down_Diagonal, up_Diagonal):
 
 
 def who_win():
-    for i in range(10):
-        for j in range(10):
+    for i in range(20):
+        for j in range(20):
             if Omok_map[i][j] == 1:
                 rule_chek(i, j, 1, row, col ,down_Diagonal, up_Diagonal)
             elif Omok_map[i][j] == 2:
                 rule_chek(i, j, 2, row, col ,down_Diagonal ,up_Diagonal)
 
 
+def show_winner(won_player):
+    Panel(z=1, scale=10, model='quad')
+    t = Text(f'Player {won_player} won!', scale=3, origin=(0, 0), background=True)
+    t.create_background(padding=(.5,.25), radius=Text.size/2)
+    b1.text_color = color.clear
 
-board_buttons = [[None for x in range(w)] for y in range(h)]
 
-global flag
-flag = True
-for y in range(h):
-    for x in range(w):
-        b = Button(parent=scene, position=(x, y), color=color.clear, model='circle', scale=0.9)
+b1 = Button(text="undo", scale=(0.1, 0.1, 0.1), position = (.6, .3), color = color.clear, model = 'quad')
+
+def _reset_(b1 = b1):
+    print("_Undo_")
+    for y in range(h):
+        for x in range(w):
+            board_buttons[y][x].color = color.clear
+            board_buttons[y][x].text_color = color.clear
+            board_buttons[y][x].collision = True
+
+b1.on_click = _reset_
+
+
+def game_start():
+    for y in range(h):
+        for x in range(w):
+            global b
+            b = Button(parent=scene, position=(x, y), color=color.clear, model='circle', scale=0.9)
+            board_buttons[y][x] = b
+            def on_mouse_enter(b=b):
+                if  b.collision:
+                    b.color = color._100
             
-        board_buttons[y][x] = b
-        def on_mouse_enter(b=b):
-            if  b.collision:
-                b.color = color._100
-        
-        def on_mouse_exit(b=b):
-            if b.collision:
-                b.color = color.clear
+            def on_mouse_exit(b=b):
+                if b.collision:
+                    b.color = color.clear
 
-        # 마우스 커서에 돌 확인
-        b.on_mouse_enter = on_mouse_enter
-        b.on_mouse_exit = on_mouse_exit
+            # 마우스 커서에 돌 확인
+            b.on_mouse_enter = on_mouse_enter
+            b.on_mouse_exit = on_mouse_exit
 
-        def click(b=b):
-            if fin == 1:
-                print("흑돌이 이겼습니다!")
-            elif fin == 2:
-                print("백돌이 이겼습니다!")
-            else:
-                global flag
-                if flag == True:
-                    b.text = "B"
-                    b.color = color.black
-                    b.collision = False
-                    flag = False
-                    Omok_map[19 - int(b.position.y) ][int(b.position.x)] = 1
-                    who_win()
-                
-                    
+            def click(b=b):
+                count = 1
+                if fin == 1:
+                    show_winner(1)
+                elif fin == 2:
+                    show_winner(2)
                 else:
-                    b.text = "W"
-                    b.text_color = color.black
-                    b.color = color.white
-                    b.collision = False 
-                    flag = True
-                    Omok_map[19 - int(b.position.y)][int(b.position.x)] = 2
-                    who_win()
+                    global flag
+                    if flag == True:
+                        b.text = "B"
+                        b.color = color.black
+                        b.collision = False
+                        flag = False
+                        Omok_map[19 - int(b.position.y) ][int(b.position.x)] = 1
+                        who_win()
+                    
+                    else:
+                        b.text = "W"
+                        b.text_color = color.black
+                        b.color = color.white
+                        b.collision = False 
+                        flag = True
+                        Omok_map[19 - int(b.position.y)][int(b.position.x)] = 2
+                        who_win()
 
-        b.on_click = click
+            b.on_click = click
 
+
+
+game_start()
 app.run()
