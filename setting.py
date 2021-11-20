@@ -1,5 +1,3 @@
-import numpy as np
-
 def is_num(x, y, num, Omok_map):
     if Omok_map[x][y] != num:
         return False
@@ -45,8 +43,8 @@ def rule_chek(i, j, num, Omok_map):
         return winner
         
 def who_win(Omok_map):
-    for i in range(10):
-        for j in range(10):
+    for i in range(20):
+        for j in range(20):
             if Omok_map[i][j] == 1:
                 winner = rule_chek(i, j, 1, Omok_map)
                 if winner == 1:
