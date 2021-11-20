@@ -31,16 +31,27 @@ def show_winner(won_player):
 
 
 b1 = Button(text="undo", scale=(0.1, 0.1, 0.1), position = (.6, .3), color = color.clear, model = 'quad')
+b2 = Button(text="finish", scale=(0.1, 0.1, 0.1), position = (.6, .2), color = color.clear, model = 'quad')
 
 def _reset_(b1 = b1):
-    print("_Undo_")
     for y in range(h):
         for x in range(w):
+            global flag
             board_buttons[y][x].color = color.clear
             board_buttons[y][x].text_color = color.clear
             board_buttons[y][x].collision = True
+            flag = True
+
+def _finish_(b2 = b2):
+    global flag
+    if flag == False:
+        show_winner(1)
+    else:
+        show_winner(2)
 
 b1.on_click = _reset_
+b2.on_click = _finish_
+
 
 def game_start():
     for y in range(h):
@@ -65,8 +76,9 @@ def game_start():
                 global flag
                 if flag == True:
                     b.text = "B"
+                    b.text_color = color.white
                     b.color = color.black
-                    b.collision = False
+                    b.collision = False 
                     flag = False
                     Omok_map[19 - int(b.position.y)][int(b.position.x)] = 1
                     if who_win(Omok_map) == 1:
@@ -83,7 +95,6 @@ def game_start():
                         show_winner(2)
 
             b.on_click = click
-
 
 if __name__ == "__main__":
     game_start()
