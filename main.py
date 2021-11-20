@@ -1,4 +1,3 @@
-from re import T
 from ursina import *
 from setting import *
 import numpy as np
