@@ -30,8 +30,8 @@ def show_winner(won_player):
     b1.text_color = color.clear
 
 
-b1 = Button(text="undo", scale=(0.1, 0.1, 0.1), position = (.6, .3), color = color.clear, model = 'quad')
-b2 = Button(text="finish", scale=(0.1, 0.1, 0.1), position = (.6, .2), color = color.clear, model = 'quad')
+b1 = Button(text="Reset", scale=(0.1, 0.1, 0.1), position = (.6, .3), color = color.clear, model = 'quad')
+b2 = Button(text="Surrender", scale=(0.1, 0.1, 0.1), position = (.6, .2), color = color.clear, model = 'quad')
 
 def _reset_(b1 = b1):
     for y in range(h):
