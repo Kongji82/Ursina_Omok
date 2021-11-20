@@ -29,6 +29,7 @@ def show_winner(won_player):
     t.create_background(padding=(.5,.25), radius=Text.size/2)
     b1.text_color = color.clear
 
+
 b1 = Button(text="undo", scale=(0.1, 0.1, 0.1), position = (.6, .3), color = color.clear, model = 'quad')
 
 def _reset_(b1 = b1):
