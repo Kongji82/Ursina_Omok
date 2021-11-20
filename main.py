@@ -4,7 +4,7 @@ import numpy as np
 
 app = Ursina()
 
-global flag
+global flag, ux, uy
 flag = True
 w, h = 20, 20
 board_buttons = [[None for x in range(w)] for y in range(h)]
@@ -18,7 +18,7 @@ camera.orthographic = True      # 2D
 camera.fov = 23
 camera.position = (w//2, h//2)
 
-map_size = 20
+map_size = 21
 Omok_map = np.zeros([map_size, map_size])
 
 Entity(model=Grid(w+1, h+1), scale=w+1, color=color.black, x=w//2-0.5, y=h//2-0.5, z=0.1)   
@@ -32,6 +32,7 @@ def show_winner(won_player):
 
 b1 = Button(text="Reset", scale=(0.1, 0.1, 0.1), position = (.6, .3), color = color.clear, model = 'quad')
 b2 = Button(text="Surrender", scale=(0.1, 0.1, 0.1), position = (.6, .2), color = color.clear, model = 'quad')
+b3 = Button(text="Undo", scale=(0.1, 0.1, 0.1), position = (.6, .1), color = color.clear, model = 'quad')
 
 def _reset_(b1 = b1):
     for y in range(h):
@@ -49,9 +50,24 @@ def _finish_(b2 = b2):
     else:
         show_winner(2)
 
+def _Undo_(b3 = b3):
+    global ux, uy, flag
+
+    if flag == True:
+        board_buttons[19 - ux][uy].color = color.clear
+        board_buttons[19 - ux][uy].text_color = color.clear
+        board_buttons[19 - ux][uy].collision = True
+        flag = False
+    else:
+        board_buttons[19 - ux][uy].color = color.clear
+        board_buttons[19 - ux][uy].text_color = color.clear
+        board_buttons[19 - ux][uy].collision = True
+        flag = True
+
+
 b1.on_click = _reset_
 b2.on_click = _finish_
-
+b3.on_click = _Undo_
 
 def game_start():
     for y in range(h):
@@ -74,6 +90,7 @@ def game_start():
             def click(b=b):
                 count = 1
                 global flag
+                global ux, uy
                 if flag == True:
                     b.text = "B"
                     b.text_color = color.white
@@ -81,6 +98,8 @@ def game_start():
                     b.collision = False 
                     flag = False
                     Omok_map[19 - int(b.position.y)][int(b.position.x)] = 1
+                    ux = 19 - int(b.position.y)
+                    uy = int(b.position.x)
                     if who_win(Omok_map) == 1:
                         show_winner(1)
                 
@@ -91,6 +110,8 @@ def game_start():
                     b.collision = False 
                     flag = True
                     Omok_map[19 - int(b.position.y)][int(b.position.x)] = 2
+                    ux = 19 - int(b.position.y)
+                    uy = int(b.position.x)
                     if who_win(Omok_map) == 2:
                         show_winner(2)
 

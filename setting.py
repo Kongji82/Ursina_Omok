@@ -5,7 +5,6 @@ def is_num(x, y, num, Omok_map):
         return True
 
 def game_over(num):
-    print(num)
     return num
 
 def rule_chek(i, j, num, Omok_map):
