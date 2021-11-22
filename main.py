@@ -1,5 +1,5 @@
 from ursina import *
-from setting import *
+from rule import *
 import numpy as np
 
 app = Ursina()
@@ -38,10 +38,13 @@ def _reset_(b1 = b1):
     for y in range(h):
         for x in range(w):
             global flag
+            global Omok_map
             board_buttons[y][x].color = color.clear
             board_buttons[y][x].text_color = color.clear
             board_buttons[y][x].collision = True
             flag = True
+
+    Omok_map = np.zeros([map_size, map_size])
 
 def _finish_(b2 = b2):
     global flag
@@ -52,16 +55,18 @@ def _finish_(b2 = b2):
 
 def _Undo_(b3 = b3):
     global ux, uy, flag
-
+    global Omok_map
     if flag == True:
         board_buttons[19 - ux][uy].color = color.clear
         board_buttons[19 - ux][uy].text_color = color.clear
         board_buttons[19 - ux][uy].collision = True
+        Omok_map[ux][uy] = 0
         flag = False
     else:
         board_buttons[19 - ux][uy].color = color.clear
         board_buttons[19 - ux][uy].text_color = color.clear
         board_buttons[19 - ux][uy].collision = True
+        Omok_map[ux][uy] = 0
         flag = True
 
 
