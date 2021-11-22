@@ -1,5 +1,5 @@
 from ursina import *
-from setting import *
+from rule import *
 import numpy as np
 
 app = Ursina()
