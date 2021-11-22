@@ -4,7 +4,8 @@
 
 팀원: 공지혁, 임형준
 
-![Untitled](%E1%84%8B%E1%85%A1%E1%86%AF%E1%84%80%E1%85%A9%E1%84%85%E1%85%B5%E1%84%8C%E1%85%B3%E1%86%B7%20%E1%84%90%E1%85%B5%E1%86%B7%20%E1%84%91%E1%85%B3%E1%84%85%E1%85%A9%E1%84%8C%E1%85%A6%E1%86%A8%E1%84%90%E1%85%B3%202a39715a0d8a4dc9bc25950ce30e92f2/Untitled.png)
+![omok screen](https://user-images.githubusercontent.com/47727212/142808454-20cdac0d-c415-4a26-986e-75e19db80580.png)
+
 
 ## main.py
 
