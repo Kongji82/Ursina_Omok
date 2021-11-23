@@ -25,7 +25,12 @@ Entity(model=Grid(w+1, h+1), scale=w+1, color=color.black, x=w//2-0.5, y=h//2-0.
 
 def show_winner(won_player):
     Panel(z=1, scale=10, model='quad')
-    t = Text(f'Player {won_player} won!', scale=3, origin=(0, 0), background=True)
+    show_player = ""
+    if won_player == 1:
+        show_player = "Black"
+    elif won_player == 2:
+        show_player = "Black"
+    t = Text(f'{show_player} Win!', scale=3, origin=(0, 0), background=True)
     t.create_background(padding=(.5,.25), radius=Text.size/2)
     b1.text_color = color.clear
 
