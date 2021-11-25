@@ -18,6 +18,7 @@ camera.orthographic = True      # 2D
 camera.fov = 23
 camera.position = (w//2, h//2)
 
+#오목 2차원 배열
 map_size = 21
 Omok_map = np.zeros([map_size, map_size])
 
@@ -36,10 +37,10 @@ def show_winner(won_player):
     b1.text_color = color.clear
 
 # 메뉴창
-b1 = Button(text="Reset", scale=(0.1, 0.1, 0.1), position = (.6, .3), color = color.clear, model = 'quad')
-b2 = Button(text="Surrender", scale=(0.1, 0.1, 0.1), position = (.6, .2), color = color.clear, model = 'quad')
-b3 = Button(text="Undo", scale=(0.1, 0.1, 0.1), position = (.6, .1), color = color.clear, model = 'quad')
-t = Text(scale=2, position=(.6, .0),  origin=(0, 0), background=False)
+t = Text(scale=2, position=(.65, .3),  origin=(0, 0), background=False)
+b1 = Button(text="Reset", scale=(0.1, 0.1, 0.1), position = (.65, .15), color = color.clear, model = 'quad')
+b2 = Button(text="Surrender", scale=(0.1, 0.1, 0.1), position = (.65, .05), color = color.clear, model = 'quad')
+b3 = Button(text="Undo", scale=(0.1, 0.1, 0.1), position = (.65, -.05), color = color.clear, model = 'quad')
 
 # 게임 도중 리셋
 def _reset_(b1 = b1):
