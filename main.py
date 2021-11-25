@@ -23,22 +23,24 @@ Omok_map = np.zeros([map_size, map_size])
 
 Entity(model=Grid(w+1, h+1), scale=w+1, color=color.black, x=w//2-0.5, y=h//2-0.5, z=0.1)   
 
+# 종료시 이긴 플레이어 나오기
 def show_winner(won_player):
     Panel(z=1, scale=10, model='quad')
     show_player = ""
     if won_player == 1:
         show_player = "Black"
     elif won_player == 2:
-        show_player = "Black"
+        show_player = "White"
     t = Text(f'{show_player} Win!', scale=3, origin=(0, 0), background=True)
     t.create_background(padding=(.5,.25), radius=Text.size/2)
     b1.text_color = color.clear
 
-
+# 메뉴창
 b1 = Button(text="Reset", scale=(0.1, 0.1, 0.1), position = (.6, .3), color = color.clear, model = 'quad')
 b2 = Button(text="Surrender", scale=(0.1, 0.1, 0.1), position = (.6, .2), color = color.clear, model = 'quad')
 b3 = Button(text="Undo", scale=(0.1, 0.1, 0.1), position = (.6, .1), color = color.clear, model = 'quad')
 
+# 게임 도중 리셋
 def _reset_(b1 = b1):
     for y in range(h):
         for x in range(w):
@@ -51,13 +53,15 @@ def _reset_(b1 = b1):
 
     Omok_map = np.zeros([map_size, map_size])
 
-def _finish_(b2 = b2):
+# 항복을 선언하는 함수
+def _surrender_(b2 = b2):
     global flag
     if flag == False:
         show_winner(1)
     else:
         show_winner(2)
 
+# 돌을 두는 것을 전 차례로 돌리는 함수
 def _Undo_(b3 = b3):
     global ux, uy, flag
     global Omok_map
@@ -76,7 +80,7 @@ def _Undo_(b3 = b3):
 
 
 b1.on_click = _reset_
-b2.on_click = _finish_
+b2.on_click = _surrender_
 b3.on_click = _Undo_
 
 def game_start():
