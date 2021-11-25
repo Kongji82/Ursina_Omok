@@ -78,7 +78,7 @@ def _Undo_(b3 = b3):
         Omok_map[ux][uy] = 0
         flag = True
 
-
+# 버튼에 함수 매핑
 b1.on_click = _reset_
 b2.on_click = _surrender_
 b3.on_click = _Undo_
@@ -88,6 +88,7 @@ def game_start():
         for x in range(w):
             global b
             b = Button(parent=scene, position=(x, y), color=color.clear, model='circle', scale=0.9)
+            t = Text(scale=2, position=(.6, .0),  origin=(0, 0), background=False)
             board_buttons[y][x] = b
             def on_mouse_enter(b=b):
                 if  b.collision:
@@ -102,10 +103,10 @@ def game_start():
             b.on_mouse_exit = on_mouse_exit
 
             def click(b=b):
-                count = 1
                 global flag
                 global ux, uy
                 if flag == True:
+                    t.text = "Black's turn"
                     b.text = "B"
                     b.text_color = color.white
                     b.color = color.black
@@ -118,6 +119,7 @@ def game_start():
                         show_winner(1)
                 
                 else:
+                    t.text = "White's turn"
                     b.text = "W"
                     b.text_color = color.black
                     b.color = color.white
