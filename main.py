@@ -106,7 +106,6 @@ def game_start():
                 global flag
                 global ux, uy
                 if flag == True:
-                    t.text = "Black's turn"
                     b.text = "B"
                     b.text_color = color.white
                     b.color = color.black
@@ -117,9 +116,9 @@ def game_start():
                     uy = int(b.position.x)
                     if who_win(Omok_map) == 1:
                         show_winner(1)
+                    t.text = "White's turn"
                 
                 else:
-                    t.text = "White's turn"
                     b.text = "W"
                     b.text_color = color.black
                     b.color = color.white
@@ -130,6 +129,7 @@ def game_start():
                     uy = int(b.position.x)
                     if who_win(Omok_map) == 2:
                         show_winner(2)
+                    t.text = "Blakc's turn"
 
             b.on_click = click
 
