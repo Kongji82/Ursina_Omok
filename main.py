@@ -39,6 +39,7 @@ def show_winner(won_player):
 b1 = Button(text="Reset", scale=(0.1, 0.1, 0.1), position = (.6, .3), color = color.clear, model = 'quad')
 b2 = Button(text="Surrender", scale=(0.1, 0.1, 0.1), position = (.6, .2), color = color.clear, model = 'quad')
 b3 = Button(text="Undo", scale=(0.1, 0.1, 0.1), position = (.6, .1), color = color.clear, model = 'quad')
+t = Text(scale=2, position=(.6, .0),  origin=(0, 0), background=False)
 
 # 게임 도중 리셋
 def _reset_(b1 = b1):
@@ -66,12 +67,15 @@ def _Undo_(b3 = b3):
     global ux, uy, flag
     global Omok_map
     if flag == True:
+        t.text = "White's turn"
         board_buttons[19 - ux][uy].color = color.clear
         board_buttons[19 - ux][uy].text_color = color.clear
         board_buttons[19 - ux][uy].collision = True
         Omok_map[ux][uy] = 0
         flag = False
+
     else:
+        t.text = "Black's turn"
         board_buttons[19 - ux][uy].color = color.clear
         board_buttons[19 - ux][uy].text_color = color.clear
         board_buttons[19 - ux][uy].collision = True
@@ -88,7 +92,6 @@ def game_start():
         for x in range(w):
             global b
             b = Button(parent=scene, position=(x, y), color=color.clear, model='circle', scale=0.9)
-            t = Text(scale=2, position=(.6, .0),  origin=(0, 0), background=False)
             board_buttons[y][x] = b
             def on_mouse_enter(b=b):
                 if  b.collision:
