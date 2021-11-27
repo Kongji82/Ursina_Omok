@@ -32,12 +32,17 @@ def show_winner(won_player):
         show_player = "Black"
     elif won_player == 2:
         show_player = "White"
-    t = Text(f'{show_player} Win!', scale=3, origin=(0, 0), background=True)
-    t.create_background(padding=(.5,.25), radius=Text.size/2)
+    show_winner = Text(f'{show_player} Win!', scale=3, origin=(0, 0), background=True)
+    show_winner.create_background(padding=(.5,.25), radius=Text.size/2)
     b1.text_color = color.clear
+    b2.text_color = color.clear
+    b3.text_color = color.clear
+    show_player_t.color = color.clear
+
+
 
 # 메뉴창
-t = Text(scale=2, position=(.65, .3),  origin=(0, 0), background=False)
+show_player_t = Text(scale=2, position=(.65, .3),  origin=(0, 0), background=False)
 b1 = Button(text="Reset", scale=(0.1, 0.1, 0.1), position = (.65, .15), color = color.clear, model = 'quad')
 b2 = Button(text="Surrender", scale=(0.1, 0.1, 0.1), position = (.65, .05), color = color.clear, model = 'quad')
 b3 = Button(text="Undo", scale=(0.1, 0.1, 0.1), position = (.65, -.05), color = color.clear, model = 'quad')
@@ -68,7 +73,7 @@ def _Undo_(b3 = b3):
     global ux, uy, flag
     global Omok_map
     if flag == True:
-        t.text = "White's turn"
+        show_player_t.text = "White's turn"
         board_buttons[19 - ux][uy].color = color.clear
         board_buttons[19 - ux][uy].text_color = color.clear
         board_buttons[19 - ux][uy].collision = True
@@ -76,7 +81,7 @@ def _Undo_(b3 = b3):
         flag = False
 
     else:
-        t.text = "Black's turn"
+        show_player_t.text = "Black's turn"
         board_buttons[19 - ux][uy].color = color.clear
         board_buttons[19 - ux][uy].text_color = color.clear
         board_buttons[19 - ux][uy].collision = True
@@ -120,7 +125,7 @@ def game_start():
                     uy = int(b.position.x)
                     if who_win(Omok_map) == 1:
                         show_winner(1)
-                    t.text = "White's turn"
+                    show_player_t.text = "White's turn"
                 
                 else:
                     b.text = "W"
@@ -133,7 +138,7 @@ def game_start():
                     uy = int(b.position.x)
                     if who_win(Omok_map) == 2:
                         show_winner(2)
-                    t.text = "Blakc's turn"
+                    show_player_t.text = "Black's turn"
 
             b.on_click = click
 
