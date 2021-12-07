@@ -55,6 +55,7 @@ def _reset_(b1 = b1):
             board_buttons[y][x].color = color.clear
             board_buttons[y][x].text_color = color.clear
             board_buttons[y][x].collision = True
+            Omok_map[y][x] = 0
             flag = True
 
     Omok_map = np.zeros([map_size, map_size])
