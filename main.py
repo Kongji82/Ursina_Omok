@@ -43,7 +43,7 @@ def show_winner(won_player):
 
 # 메뉴창
 show_player_t = Text(scale=2, position=(.65, .3),  origin=(0, 0), background=False)
-b1 = Button(text="Reset", scale=(0.1, 0.1, 0.1), position = (.65, .15), color = color.clear, model = 'quad')
+b1 = Button(text="Reset", scale=(0.1, 0.1, 0.1), position = (.65, .15), color = color.clear, model = 'quad') 
 b2 = Button(text="Surrender", scale=(0.1, 0.1, 0.1), position = (.65, .05), color = color.clear, model = 'quad')
 b3 = Button(text="Undo", scale=(0.1, 0.1, 0.1), position = (.65, -.05), color = color.clear, model = 'quad')
 

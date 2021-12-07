@@ -1,7 +1,7 @@
 
 #오목알이 유효한지
-def is_Vaild(x, y, num, Omok_map):
-    if Omok_map[x][y] != num:
+def is_Vaild(i, j, num, Omok_map):
+    if Omok_map[i][j] != num:
         return False
     else:
         return True
@@ -10,7 +10,7 @@ def is_Vaild(x, y, num, Omok_map):
 def game_over(num):
     return num
 
-#핵심 규칙(자세한건 ppt)
+#오목 규칙
 def rule_chek(i, j, num, Omok_map):
     row = 0 
     col = 0 
