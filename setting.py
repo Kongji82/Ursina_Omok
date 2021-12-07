@@ -6,10 +6,6 @@ def is_Vaild(i, j, num, Omok_map):
     else:
         return True
 
-#승리한 player num을 return
-def game_over(num):
-    return num
-
 #오목 규칙
 def rule_chek(i, j, num, Omok_map):
     row = 0 
@@ -42,8 +38,7 @@ def rule_chek(i, j, num, Omok_map):
             up_Diagonal = up_Diagonal + 1
     
     if row == 5 or col == 5 or down_Diagonal == 5 or up_Diagonal == 5:
-        winner = game_over(num)
-        return winner
+        return num
 
 #전체 2차원 배열을 탐색하여 5개 연속돌 찾기        
 def who_win(Omok_map):
