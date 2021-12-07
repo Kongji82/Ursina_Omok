@@ -32,14 +32,13 @@ def show_winner(won_player):
         show_player = "Black"
     elif won_player == 2:
         show_player = "White"
+
     show_winner = Text(f'{show_player} Win!', scale=3, origin=(0, 0), background=True)
     show_winner.create_background(padding=(.5,.25), radius=Text.size/2)
     b1.text_color = color.clear
     b2.text_color = color.clear
     b3.text_color = color.clear
     show_player_t.color = color.clear
-
-
 
 # 메뉴창
 show_player_t = Text(scale=2, position=(.65, .3),  origin=(0, 0), background=False)
@@ -49,10 +48,10 @@ b3 = Button(text="Undo", scale=(0.1, 0.1, 0.1), position = (.65, -.05), color = 
 
 # 게임 도중 리셋
 def _reset_(b1 = b1):
+    global flag
+    global Omok_map
     for y in range(h):
         for x in range(w):
-            global flag
-            global Omok_map
             board_buttons[y][x].color = color.clear
             board_buttons[y][x].text_color = color.clear
             board_buttons[y][x].collision = True
@@ -72,46 +71,48 @@ def _surrender_(b2 = b2):
 def _Undo_(b3 = b3):
     global ux, uy, flag
     global Omok_map
-    if flag == True:
-        show_player_t.text = "White's turn"
-        board_buttons[19 - ux][uy].color = color.clear
-        board_buttons[19 - ux][uy].text_color = color.clear
-        board_buttons[19 - ux][uy].collision = True
-        Omok_map[ux][uy] = 0
-        flag = False
+    with board_buttons[19 - ux][uy] as button:
+        if flag == True:
+            show_player_t.text = "White's turn"
+            button.color = color.clear
+            button.text_color = color.clear
+            button.collision = True
+            Omok_map[ux][uy] = 0
+            flag = False
 
-    else:
-        show_player_t.text = "Black's turn"
-        board_buttons[19 - ux][uy].color = color.clear
-        board_buttons[19 - ux][uy].text_color = color.clear
-        board_buttons[19 - ux][uy].collision = True
-        Omok_map[ux][uy] = 0
-        flag = True
+        else:
+            show_player_t.text = "Black's turn"
+            button.color = color.clear
+            button.text_color = color.clear
+            button.collision = True
+            Omok_map[ux][uy] = 0
+            flag = True
 
 # 버튼에 함수 매핑
 b1.on_click = _reset_
 b2.on_click = _surrender_
 b3.on_click = _Undo_
 
+
 def game_start():
     for y in range(h):
         for x in range(w):
-            global b
-            b = Button(parent=scene, position=(x, y), color=color.clear, model='circle', scale=0.9)
-            board_buttons[y][x] = b
-            def on_mouse_enter(b=b):
+            btn = Button(parent=scene, position=(x, y), color=color.clear, model='circle', scale=0.9)
+            board_buttons[y][x] = btn
+            
+            def on_mouse_enter(b=btn):
                 if  b.collision:
                     b.color = color._100
-            
-            def on_mouse_exit(b=b):
+
+            def on_mouse_exit(b=btn):
                 if b.collision:
                     b.color = color.clear
 
             # 마우스 커서에 돌 확인
-            b.on_mouse_enter = on_mouse_enter
-            b.on_mouse_exit = on_mouse_exit
+            btn.on_mouse_enter = on_mouse_enter
+            btn.on_mouse_exit = on_mouse_exit
 
-            def click(b=b):
+            def click(b=btn):
                 global flag
                 global ux, uy
                 if flag == True:
@@ -140,7 +141,7 @@ def game_start():
                         show_winner(2)
                     show_player_t.text = "Black's turn"
 
-            b.on_click = click
+            btn.on_click = click
 
 if __name__ == "__main__":
     game_start()
